@@ -159,3 +159,11 @@
 .taken {
   background-color: steelblue;
 }
+
+.hit {
+  background-color: red;
+}
+
+.miss {
+  background-color: gray;
+}
