@@ -39,7 +39,7 @@
   width: 450px;
   display: flex;
   flex-wrap: wrap;
-  background-color: blueviolet;
+  /* background-color: blueviolet; */
 }
 
 .matrix div {
@@ -89,6 +89,16 @@
   border: 1px solid black;
 }
 
+.small-ship-container-v {
+  display: flex;
+  flex-wrap: wrap;
+  width: 48px;
+  height: 96px;
+  background-color: black;
+  margin: 10px;
+  border: 1px solid black;
+}
+
 .medium-ship-container-0,
 .medium-ship-container-1 {
   width: 144px;
@@ -99,6 +109,17 @@
   border: 1px solid black;
 }
 
+.medium-ship-container-0-v,
+.medium-ship-container-1-v {
+  display: flex;
+  flex-wrap: wrap;
+  width: 48px;
+  height: 144px;
+  background-color: black;
+  margin: 10px;
+  border: 1px solid black;
+}
+
 .big-ship-container-0,
 .big-ship-container-1 {
   width: 192px;
@@ -106,6 +127,17 @@
   background-color: black;
   margin: 10px;
   display: flex;
+  border: 1px solid black;
+}
+
+.big-ship-container-0-v,
+.big-ship-container-1-v {
+  display: flex;
+  flex-wrap: wrap;
+  width: 48px;
+  height: 192px;
+  background-color: black;
+  margin: 10px;
   border: 1px solid black;
 }
 
@@ -122,4 +154,8 @@
 }
 .Big-Ship {
   background-color: sandybrown;
+}
+
+.taken {
+  background-color: steelblue;
 }

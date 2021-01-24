@@ -33,19 +33,21 @@ const shipsDisplay = document.querySelector(".ships-display");
 // Each Ship
 const ships = document.querySelectorAll(".ship");
 
-const smallShip = document.querySelector("small-ship-container");
-const mediumShip1 = document.querySelector("medium-ship-container-0");
-const mediumShip2 = document.querySelector("medium-ship-container-1");
-const bigShip1 = document.querySelector("big-ship-container-0");
-const bigShip2 = document.querySelector("big-ship-container-1");
+const smallShip = document.querySelector(".small-ship-container");
+const mediumShip1 = document.querySelector(".medium-ship-container-0");
+const mediumShip2 = document.querySelector(".medium-ship-container-1");
+const bigShip1 = document.querySelector(".big-ship-container-0");
+const bigShip2 = document.querySelector(".big-ship-container-1");
 
 // Buttons
 const startButton = document.getElementById("start");
 const rotateButton = document.getElementById("rotate");
-
+console.log(rotateButton);
 // turn display
 const turn = document.getElementById("turn");
 
 // general info
 
 const generalInfo = document.getElementById("info");
+
+console.log(smallShip);
