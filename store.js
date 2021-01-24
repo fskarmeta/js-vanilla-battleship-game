@@ -45,15 +45,13 @@ const bigShip2 = document.querySelector(".big-ship-container-1");
 
 // Buttons
 const startButton = document.getElementById("start");
+const restartButton = document.getElementById("restart");
 const rotateButton = document.getElementById("rotate");
-console.log(rotateButton);
+const fireButton = document.getElementById("fire");
+const showShipsButton = document.getElementById("show-ships");
+
 // turn display
 const turn = document.getElementById("turn");
 
 // general info
-
-let generalInfo = document.getElementById("info");
-
-console.log(smallShip);
-
-const fireButton = document.getElementById("test");
+const generalInfo = document.getElementById("info");

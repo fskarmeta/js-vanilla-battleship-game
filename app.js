@@ -8,6 +8,8 @@ const matrixSize = 9;
 let shipsHorizontal = true;
 // is game over
 let gameOver = false;
+// game has startrd
+let gameStarted = false;
 // current player
 let currentPlayer = "user";
 
@@ -61,7 +63,6 @@ createGameBoard(matrixSize, computerGameboard, computerArray);
 
 // Rotate Ships to drag
 function rotateShips() {
-  console.log(`ESTA HORIZONTAL: ${!shipsHorizontal}`);
   if (shipsHorizontal) {
     document.querySelector(".ships-display").style.display = "flex";
   }
@@ -115,7 +116,7 @@ function dragEnter(event) {
 }
 
 function dragLeave() {
-  console.log("drag leave");
+  return;
 }
 
 function dragDrop() {
@@ -128,16 +129,16 @@ function dragDrop() {
 
   let selectedShipIndex = parseInt(currentShipIndex.substr(-1));
 
-  console.log(`currentShipIndex: ${currentShipIndex}`);
-  console.log(`shipWithLastId: ${shipWithLastId}`);
-  console.log(`shipClass : ${shipClass}`);
-  console.log(`lastShipIndex: ${lastShipIndex}`);
-  console.log(`lastId: ${lastId}`);
-  console.log(`selectedShipIndex: ${selectedShipIndex}`);
+  // console.log(`currentShipIndex: ${currentShipIndex}`);
+  // console.log(`shipWithLastId: ${shipWithLastId}`);
+  // console.log(`shipClass : ${shipClass}`);
+  // console.log(`lastShipIndex: ${lastShipIndex}`);
+  // console.log(`lastId: ${lastId}`);
+  // console.log(`selectedShipIndex: ${selectedShipIndex}`);
 
   lastId = lastId - selectedShipIndex;
 
-  console.log(`lastId: ${lastId}`);
+  // console.log(`lastId: ${lastId}`);
   // Coordinates where I should not drop a ship horizontal
   const forbiddenHorizontalSquares = [];
   for (let i = 0; i < 10; i++) {
@@ -153,42 +154,17 @@ function dragDrop() {
     forbiddenHorizontalSquares.push(i * 9 + 3);
   }
 
-  // Coordinates where I should not drop a ship vertical
-  const forbiddenVerticalSquares = [];
-  for (let i = 81; i >= 42; i--) {
-    forbiddenVerticalSquares.push(i);
-  }
-
-  console.log(`Originalforbidden array VERTICAL ${forbiddenVerticalSquares}`);
-  console.log(
-    `Originalforbidden array HORIZONTAL ${forbiddenHorizontalSquares}`
-  );
-
-  console.log(`laship index ${lastShipIndex}`);
   // Part of the not allowed array depending on the ship size
   let newForbiddenHorizontalSquares = forbiddenHorizontalSquares.splice(
     0,
     9 * lastShipIndex
   );
 
-  let newForbiddenVerticalSquares = forbiddenVerticalSquares.splice(
-    0,
-    9 * lastShipIndex
-  );
-
-  console.log(`Final forbidden array VERTICAL ${newForbiddenVerticalSquares}`);
-  console.log(
-    `Final forbidden array HORIZONTAL ${newForbiddenHorizontalSquares}`
-  );
-
-  console.log(`last id ${lastId}`);
   //Check and return if not allowed
   if (shipsHorizontal && newForbiddenHorizontalSquares.includes(lastId)) {
-    console.log("CUADRANTE PROHIBIDO (HORIZONTAL)");
     return;
   }
-  if (!shipsHorizontal && newForbiddenVerticalSquares.includes(lastId)) {
-    console.log("CUADRANTE PROHIBIDO (VERTICAL)");
+  if (!shipsHorizontal && lastId - lastShipIndex + lastShipIndex * 9 > 80) {
     return;
   }
 
@@ -212,11 +188,10 @@ function dragDrop() {
   //remove ship from display
   shipsDisplay.removeChild(currentShip);
   draggs++;
-  console.log(`draggs ${draggs}`);
 }
 
 function dragEnd() {
-  console.log("drag end");
+  return;
 }
 
 //////////////////// CREATE RANDOM SHIP FOR COMPUTER GAMEBOARD /////////////////////////////
@@ -236,7 +211,7 @@ function generateRandomShip(ship) {
 
   //check if square in grid is already taken
   const squareInUse = currentDirection.some((i) =>
-    computerArray[randomShipStart + i].classList.contains("taken")
+    computerArray[randomShipStart + i].classList.contains("pc-taken")
   );
   // check that ship is not on the right edge
   const squareInRightEdge = currentDirection.some(
@@ -249,7 +224,7 @@ function generateRandomShip(ship) {
   // If space available, create ship, else bring a new ship
   if (!squareInUse && !squareInRightEdge && !squareInLeftEdge) {
     currentDirection.forEach((i) =>
-      computerArray[randomShipStart + i].classList.add("taken", ship.name)
+      computerArray[randomShipStart + i].classList.add("pc-taken", ship.name)
     );
   } else {
     generateRandomShip(ship);
@@ -264,9 +239,14 @@ generateRandomShip(bigShipObj2);
 /////////// GAME //////////////
 
 fireButton.addEventListener("click", fireTorpedo);
+showShipsButton.addEventListener("click", showShips);
 
 function fireTorpedo() {
-  const coordinatesPromt = prompt();
+  if (!gameStarted) {
+    alert("Game has not started yet");
+    return;
+  }
+  const coordinatesPromt = prompt("X, Y Where X is the Row and Y the Column");
   const newCoordintes = coordinatesPromt.replace(",", "");
 
   const operation = (
@@ -281,6 +261,25 @@ function fireTorpedo() {
   }
 }
 
+function showShips() {
+  computerArray.forEach((square) => {
+    if (square.classList.contains("pc-taken")) {
+      square.style.backgroundColor = "steelblue";
+    }
+    if (square.classList.contains("hit")) {
+      square.style.backgroundColor = "red";
+    }
+  });
+}
+
+restartButton.addEventListener("click", restartGame);
+
+function restartGame() {
+  location.reload();
+}
+
+/// GAME START
+
 function play() {
   if (draggs < 5) {
     alert("You have to drag your ships first!");
@@ -289,6 +288,9 @@ function play() {
   if (gameOver) {
     return;
   }
+  gameStarted = true;
+  startButton.style.display = "none";
+
   if (currentPlayer == "user") {
     turn.textContent = "It's your turn";
     computerArray.forEach((square) =>
@@ -317,21 +319,26 @@ function showSquare(square) {
   if (!square.classList.contains("hit")) {
     if (square.classList.contains("Small-Ship")) {
       smallShipCount++;
+      square.style.backgroundColor = "red";
     }
     if (square.classList.contains("Medium-Ship")) {
       mediumShipCount++;
+      square.style.backgroundColor = "red";
     }
     if (square.classList.contains("Medium-Ship2")) {
       mediumShip2Count++;
+      square.style.backgroundColor = "red";
     }
     if (square.classList.contains("Big-Ship")) {
       bigShipCount++;
+      square.style.backgroundColor = "red";
     }
     if (square.classList.contains("Big-Ship2")) {
       bigShip2Count++;
+      square.style.backgroundColor = "red";
     }
   }
-  if (square.classList.contains("taken")) {
+  if (square.classList.contains("pc-taken")) {
     square.classList.add("hit");
   } else {
     square.classList.add("miss");
@@ -350,7 +357,7 @@ let pcBigShip2Count = 0;
 const computerPlays = () => {
   const randomSquare = Math.floor(Math.random() * userArray.length);
   if (
-    !userArray[randomSquare].classList.contains("hit") ||
+    !userArray[randomSquare].classList.contains("hit") &&
     !userArray[randomSquare].classList.contains("miss")
   ) {
     userArray[randomSquare].classList.add("miss");
@@ -389,18 +396,6 @@ const computerPlays = () => {
 };
 
 const checkWinner = () => {
-  // console.log(`pc Small Ship ${pcSmallShipCount}`);
-  // console.log(`pc Medium Ship ${pcMediumShipCount}`);
-  // console.log(`pc Medium Ship 2 ${pcMediumShip2Count}`);
-  // console.log(`pc Big Ship ${pcBigShipCount}`);
-  // console.log(`pc Big Ship 2 ${pcBigShip2Count}`);
-
-  // console.log(`user Small Ship ${smallShipCount}`);
-  // console.log(`user Medium Ship ${mediumShipCount}`);
-  // console.log(`user Medium Ship 2 ${mediumShip2Count}`);
-  // console.log(`user Big Ship ${bigShipCount}`);
-  // console.log(`user Big Ship 2 ${bigShip2Count}`);
-
   if (smallShipCount === 2) {
     generalInfo.textContent = "You sunk a computers small ship!";
     smallShipCount = 10;
@@ -426,21 +421,28 @@ const checkWinner = () => {
     pcSmallShipCount = 10;
   }
   if (pcMediumShipCount === 3) {
-    generalInfo.textContent = "The computer sunk a medium sized ship!";
-    pcrMediumShipCount = 10;
+    generalInfo.textContent = "The computer sunk a medium sizeds ship!";
+    pcMediumShipCount = 10;
   }
   if (pcMediumShip2Count === 3) {
     generalInfo.textContent = "The computer sunk medium sized ship!";
     pcMediumShip2Count = 10;
   }
   if (pcBigShipCount === 4) {
-    generalInfo.textContent = "The computer sunk a computers big ship!";
+    generalInfo.textContent = "The computer sunk a big ship!";
     pcBigShipCount = 10;
   }
   if (pcBigShip2Count === 4) {
-    generalInfo.textContent = "The computer sunk a computers big ship!";
+    generalInfo.textContent = "The computer sunk a big ship!";
     pcBigShip2Count = 10;
   }
+
+  console.log("----NEW LINE------");
+  console.log(`small ship ${pcSmallShipCount}`);
+  console.log(`medium 1 ${pcMediumShipCount}`);
+  console.log(`medium 2 ${pcMediumShip2Count}`);
+  console.log(`big 1 ${pcBigShipCount}`);
+  console.log(`big 2 ${pcBigShip2Count}`);
 
   if (
     smallShipCount +
@@ -468,5 +470,5 @@ const checkWinner = () => {
 
 function gameIsOver() {
   gameOver = true;
-  startButton.removeEventListener("click", play);
+  restartButton.style.display = "block";
 }

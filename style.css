@@ -105,10 +105,37 @@ body {
   align-self: center;
 }
 
+#restart {
+  display: none;
+  font-size: 25px;
+  width: 10rem;
+  margin: 10px;
+  margin-top: 20px;
+  align-self: center;
+}
+
+#fire {
+  width: 10rem;
+  margin: 10px;
+  margin-top: 20px;
+  align-self: center;
+}
+
+#show-ships {
+  width: 10rem;
+  margin: 10px;
+  margin-top: 20px;
+  align-self: center;
+}
+
 .ships-display {
   width: 375px;
   height: 310px;
   /* background-color: salmon; */
+}
+
+.ships-display div {
+  cursor: grab;
 }
 
 .small-ship-container {
@@ -177,24 +204,18 @@ body {
   height: 48px;
 }
 
-.Small-Ship {
-  background-color: sienna;
-}
-.Medium-Ship {
-  background-color: springgreen;
-}
-.Big-Ship {
-  background-color: sandybrown;
-}
-
 .taken {
   background-color: steelblue;
 }
 
-.hit {
-  background-color: red;
-}
-
 .miss {
   background-color: gray;
+}
+
+.pc-taken {
+  background-color: none;
+}
+
+.hit {
+  background-color: red;
 }
