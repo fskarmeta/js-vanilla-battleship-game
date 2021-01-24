@@ -6,7 +6,11 @@ for (let i = 0; i < 10; i++) {
   for (let j = 0; j < upper.length; j++) {
     const display_square = document.createElement("div");
     display_square.classList.add("square");
-    display_square.textContent = i;
+    if (i === 0) {
+      display_square.textContent = "";
+    } else {
+      display_square.textContent = i;
+    }
     display_square.style.backgroundColor = "lightblue";
     upper[j].append(display_square);
   }
@@ -48,6 +52,8 @@ const turn = document.getElementById("turn");
 
 // general info
 
-const generalInfo = document.getElementById("info");
+let generalInfo = document.getElementById("info");
 
 console.log(smallShip);
+
+const fireButton = document.getElementById("test");

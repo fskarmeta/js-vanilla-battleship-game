@@ -3,12 +3,21 @@
   padding: 0;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+}
 #grids-container {
+  align-self: center;
   display: flex;
   /* width: 80vw;
   justify-content: space-between; */
 }
 
+.ships-title {
+  text-align: center;
+}
 .board-title {
   text-align: center;
 }
@@ -61,7 +70,8 @@
 }
 
 #info {
-  text-align: start;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 #turn {
@@ -74,10 +84,31 @@
   justify-content: space-between;
 }
 
+.ships-display-container {
+  width: auto;
+  /* background-color: brown; */
+  display: flex;
+  flex-direction: column;
+}
+
+#rotate {
+  width: 8rem;
+  margin: 10px;
+  align-self: center;
+}
+
+#start {
+  font-size: 25px;
+  width: 10rem;
+  margin: 10px;
+  margin-top: 20px;
+  align-self: center;
+}
+
 .ships-display {
-  width: 300px;
-  height: 300px;
-  background-color: salmon;
+  width: 375px;
+  height: 310px;
+  /* background-color: salmon; */
 }
 
 .small-ship-container {

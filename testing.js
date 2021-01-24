@@ -25,7 +25,9 @@ const forbiddenHorizontalSquares = [];
 //   forbiddenHorizontalSquares.push(i * 9 + 3);
 // }
 
-for (let i = 81; i >= 41; i--) {
-  forbiddenHorizontalSquares.push(i);
-}
-console.log(forbiddenHorizontalSquares);
+// for (let i = 81; i >= 41; i--) {
+//   forbiddenHorizontalSquares.push(i);
+// }
+// console.log(forbiddenHorizontalSquares);
+
+console.log((10 / 3).toFixed());
