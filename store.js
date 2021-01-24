@@ -1,6 +1,6 @@
+//Numbered display for the grids css
 const upper = document.getElementsByClassName("upper");
 const right_side = document.getElementsByClassName("right");
-const battleship = document.getElementById("user-gameboard");
 
 for (let i = 0; i < 10; i++) {
   for (let j = 0; j < upper.length; j++) {
@@ -21,3 +21,31 @@ for (let i = 0; i < 9; i++) {
     right_side[j].append(display_square);
   }
 }
+//////////////
+
+// Grids
+const userGameboard = document.querySelector(".user-gameboard");
+const computerGameboard = document.querySelector(".computer-gameboard");
+
+// Ship Display
+const shipsDisplay = document.querySelector(".ships-display");
+
+// Each Ship
+const ships = document.querySelectorAll(".ship");
+
+const smallShip = document.querySelector("small-ship-container");
+const mediumShip1 = document.querySelector("medium-ship-container-0");
+const mediumShip2 = document.querySelector("medium-ship-container-1");
+const bigShip1 = document.querySelector("big-ship-container-0");
+const bigShip2 = document.querySelector("big-ship-container-1");
+
+// Buttons
+const startButton = document.getElementById("start");
+const rotateButton = document.getElementById("rotate");
+
+// turn display
+const turn = document.getElementById("turn");
+
+// general info
+
+const generalInfo = document.getElementById("info");

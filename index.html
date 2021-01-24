@@ -12,15 +12,16 @@
 </head>
 
 <body>
+    <h1 id="info">test</h1>
     <div id="grids-container">
-
         <div class="container">
             <div>
-                <h2 class="board-title">Your GameBoard</h1>
+                <h2 class="board-title">Your Gameboard</h1>
                     <div class="upper"></div>
                     <div class="under">
                         <div class="right"></div>
-                        <div class="user-gameboard matrix"></div>
+                        <div class="user-gameboard matrix">
+                        </div>
                     </div>
             </div>
         </div>
@@ -33,6 +34,43 @@
                         <div class="computer-gameboard matrix"></div>
                     </div>
             </div>
+        </div>
+
+    </div>
+    <div class="displays">
+        <div class="ships-display">
+            <div class="ship small-ship-container" draggable="true">
+                <div id="small-ship-0"></div>
+                <div id="small-ship-1"></div>
+            </div>
+
+            <div class="ship medium-ship-container-0" draggable="true">
+                <div id="medium-ship-0-0"></div>
+                <div id="medium-ship-0-1"></div>
+                <div id="medium-ship-0-2"></div>
+            </div>
+            <div class="ship medium-ship-container-1" draggable="true">
+                <div id="medium-ship-1-0"></div>
+                <div id="medium-ship-1-1"></div>
+                <div id="medium-ship-1-2"></div>
+            </div>
+            <div class="ship big-ship-container-0" draggable="true">
+                <div id="big-ship-0-0"></div>
+                <div id="big-ship-0-1"></div>
+                <div id="big-ship-0-2"></div>
+                <div id="big-ship-0-3"></div>
+            </div>
+            <div class="ship big-ship-container-1" draggable="true">
+                <div id="big-ship-1-0"></div>
+                <div id="big-ship-1-1"></div>
+                <div id="big-ship-1-2"></div>
+                <div id="big-ship-1-3"></div>
+            </div>
+        </div>
+        <div class="buttons-div">
+            <h2 id="turn">Your turn</h2>
+            <button id="start">Start Game</button>
+            <button id="rotate">Rotate Ships</button>
         </div>
     </div>
 </body>

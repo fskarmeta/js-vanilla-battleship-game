@@ -1,14 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 #grids-container {
   display: flex;
-  width: 80vw;
-  justify-content: space-between;
+  /* width: 80vw;
+  justify-content: space-between; */
 }
 
 .board-title {
   text-align: center;
 }
 .container {
-  height: 500px;
+  height: 600px;
   width: 500px;
   /* background-color: red; */
 }
@@ -37,8 +42,15 @@
   background-color: blueviolet;
 }
 
+.matrix div {
+  /* background-color: yellowgreen; */
+  border: 1px solid black;
+  height: 48px;
+  width: 48px;
+}
+
 .square {
-  background-color: yellowgreen;
+  /* background-color: yellowgreen; */
   border: 1px solid black;
   height: 48px;
   width: 48px;
@@ -46,4 +58,68 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#info {
+  text-align: start;
+}
+
+#turn {
+  text-align: center;
+}
+
+.displays {
+  display: flex;
+  width: 50vw;
+  justify-content: space-between;
+}
+
+.ships-display {
+  width: 300px;
+  height: 300px;
+  background-color: salmon;
+}
+
+.small-ship-container {
+  width: 96px;
+  height: 48px;
+  background-color: black;
+  margin: 10px;
+  display: flex;
+  border: 1px solid black;
+}
+
+.medium-ship-container-0,
+.medium-ship-container-1 {
+  width: 144px;
+  height: 48px;
+  background-color: black;
+  margin: 10px;
+  display: flex;
+  border: 1px solid black;
+}
+
+.big-ship-container-0,
+.big-ship-container-1 {
+  width: 192px;
+  height: 48px;
+  background-color: black;
+  margin: 10px;
+  display: flex;
+  border: 1px solid black;
+}
+
+.ship div {
+  width: 48px;
+  height: 48px;
+}
+
+.Small-Ship {
+  background-color: sienna;
+}
+.Medium-Ship {
+  background-color: springgreen;
+}
+.Big-Ship {
+  background-color: sandybrown;
 }
