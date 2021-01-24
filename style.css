@@ -11,8 +11,6 @@ body {
 #grids-container {
   align-self: center;
   display: flex;
-  /* width: 80vw;
-  justify-content: space-between; */
 }
 
 .ships-title {
@@ -24,7 +22,6 @@ body {
 .container {
   height: 600px;
   width: 500px;
-  /* background-color: red; */
 }
 
 .upper {
@@ -48,18 +45,15 @@ body {
   width: 450px;
   display: flex;
   flex-wrap: wrap;
-  /* background-color: blueviolet; */
 }
 
 .matrix div {
-  /* background-color: yellowgreen; */
   border: 1px solid black;
   height: 48px;
   width: 48px;
 }
 
 .square {
-  /* background-color: yellowgreen; */
   border: 1px solid black;
   height: 48px;
   width: 48px;
@@ -86,7 +80,6 @@ body {
 
 .ships-display-container {
   width: auto;
-  /* background-color: brown; */
   display: flex;
   flex-direction: column;
 }
@@ -131,7 +124,6 @@ body {
 .ships-display {
   width: 375px;
   height: 310px;
-  /* background-color: salmon; */
 }
 
 .ships-display div {

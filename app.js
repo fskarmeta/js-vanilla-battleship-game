@@ -50,14 +50,31 @@ const bigShipObj2 = {
 function createGameBoard(matrixSize, gameboard, array) {
   for (let i = 0; i < matrixSize * matrixSize; i++) {
     const square = document.createElement("div");
+    //each square will have a unique number for their corresponding position
     square.dataset.id = i;
     gameboard.appendChild(square);
+    //save all the DOM data of the gameboard in an array (userArray and computerArray)
     array.push(square);
   }
 }
 
 createGameBoard(matrixSize, userGameboard, userArray);
 createGameBoard(matrixSize, computerGameboard, computerArray);
+
+//// EVENT LISTENERS ////////
+rotateButton.addEventListener("click", rotateShips);
+fireButton.addEventListener("click", fireTorpedo);
+showShipsButton.addEventListener("click", showShips);
+restartButton.addEventListener("click", restartGame);
+startButton.addEventListener("click", play);
+
+ships.forEach((ship) => ship.addEventListener("dragstart", dragStart));
+userArray.forEach((array) => array.addEventListener("dragstart", dragStart));
+userArray.forEach((array) => array.addEventListener("dragover", dragOver));
+userArray.forEach((array) => array.addEventListener("dragenter", dragEnter));
+userArray.forEach((array) => array.addEventListener("dragleave", dragLeave));
+userArray.forEach((array) => array.addEventListener("drop", dragDrop));
+userArray.forEach((array) => array.addEventListener("dragend", dragEnd));
 
 //////////////////////////// ROTATE SHIPS /////////////////////////
 
@@ -77,18 +94,9 @@ function rotateShips() {
   shipsHorizontal = !shipsHorizontal;
 }
 
-rotateButton.addEventListener("click", rotateShips);
-
 ///////////////////////////// DRAG AND DROP SHIPS ////////////////////////////////
-ships.forEach((ship) => ship.addEventListener("dragstart", dragStart));
-userArray.forEach((array) => array.addEventListener("dragstart", dragStart));
-userArray.forEach((array) => array.addEventListener("dragover", dragOver));
-userArray.forEach((array) => array.addEventListener("dragenter", dragEnter));
-userArray.forEach((array) => array.addEventListener("dragleave", dragLeave));
-userArray.forEach((array) => array.addEventListener("drop", dragDrop));
-userArray.forEach((array) => array.addEventListener("dragend", dragEnd));
 
-// Name and Index of ship when mousedown
+// Name and Index of ship when mousedown ex: "big-ship-1-2"
 let currentShipIndex;
 //Ship that is beeing dragged
 let currentShip;
@@ -98,7 +106,6 @@ let currentShipLength;
 ships.forEach((ship) =>
   ship.addEventListener("mousedown", (event) => {
     currentShipIndex = event.target.id;
-    // console.log(currentShipIdex);
   })
 );
 
@@ -120,22 +127,27 @@ function dragLeave() {
 }
 
 function dragDrop() {
+  //id of last element in the node list to slice the size ex: big-ship-1-3
   let shipWithLastId = currentShip.lastElementChild.id;
+  // saving a unique name for the class that is going to be added ex: big-ship-1
   let shipClass = currentShip.lastElementChild.id.slice(0, -2);
+  //ship size ex: 3
   let lastShipIndex = parseInt(shipWithLastId.substr(-1));
 
   //Adding ship size (from substrig) with datasetId (position in gameboard)
   let lastId = lastShipIndex + parseInt(this.dataset.id);
 
+  // From what div was the element taken ex:2
   let selectedShipIndex = parseInt(currentShipIndex.substr(-1));
 
-  // console.log(`currentShipIndex: ${currentShipIndex}`);
-  // console.log(`shipWithLastId: ${shipWithLastId}`);
-  // console.log(`shipClass : ${shipClass}`);
-  // console.log(`lastShipIndex: ${lastShipIndex}`);
-  // console.log(`lastId: ${lastId}`);
-  // console.log(`selectedShipIndex: ${selectedShipIndex}`);
+  console.log(`currentShipIndex: ${currentShipIndex}`);
+  console.log(`shipWithLastId: ${shipWithLastId}`);
+  console.log(`shipClass : ${shipClass}`);
+  console.log(`lastShipIndex: ${lastShipIndex}`);
+  console.log(`lastId: ${lastId}`);
+  console.log(`selectedShipIndex: ${selectedShipIndex}`);
 
+  //last data set id (number) in wish the element is position in the gameboard ex:66
   lastId = lastId - selectedShipIndex;
 
   // console.log(`lastId: ${lastId}`);
@@ -154,7 +166,7 @@ function dragDrop() {
     forbiddenHorizontalSquares.push(i * 9 + 3);
   }
 
-  // Part of the not allowed array depending on the ship size
+  // Part used of the not allowed array depending on the ship size
   let newForbiddenHorizontalSquares = forbiddenHorizontalSquares.splice(
     0,
     9 * lastShipIndex
@@ -164,6 +176,8 @@ function dragDrop() {
   if (shipsHorizontal && newForbiddenHorizontalSquares.includes(lastId)) {
     return;
   }
+
+  // if any square that would be used by the ship is bigger then 80, dont allow drop, for vertical
   if (!shipsHorizontal && lastId - lastShipIndex + lastShipIndex * 9 > 80) {
     return;
   }
@@ -187,6 +201,7 @@ function dragDrop() {
 
   //remove ship from display
   shipsDisplay.removeChild(currentShip);
+  // add drags to check if it has been done before starting the game
   draggs++;
 }
 
@@ -236,11 +251,10 @@ generateRandomShip(mediumShipObj);
 generateRandomShip(mediumShipObj2);
 generateRandomShip(bigShipObj);
 generateRandomShip(bigShipObj2);
+
 /////////// GAME //////////////
 
-fireButton.addEventListener("click", fireTorpedo);
-showShipsButton.addEventListener("click", showShips);
-
+//Manually fire a a torpedo by giving the coordinates in the board
 function fireTorpedo() {
   if (!gameStarted) {
     alert("Game has not started yet");
@@ -261,6 +275,7 @@ function fireTorpedo() {
   }
 }
 
+// show ships if wanted
 function showShips() {
   computerArray.forEach((square) => {
     if (square.classList.contains("pc-taken")) {
@@ -272,13 +287,12 @@ function showShips() {
   });
 }
 
-restartButton.addEventListener("click", restartGame);
-
+// after game over, this button to refresh the page is shown
 function restartGame() {
   location.reload();
 }
 
-/// GAME START
+/// GAME START - GAME LOGIC
 
 function play() {
   if (draggs < 5) {
@@ -307,8 +321,7 @@ function play() {
   }
 }
 
-startButton.addEventListener("click", play);
-
+// Keeping count of the users points
 let smallShipCount = 0;
 let mediumShipCount = 0;
 let mediumShip2Count = 0;
@@ -348,6 +361,7 @@ function showSquare(square) {
   play();
 }
 
+// count of the computer points
 let pcSmallShipCount = 0;
 let pcMediumShipCount = 0;
 let pcMediumShip2Count = 0;
@@ -395,6 +409,8 @@ const computerPlays = () => {
   turn.textContent = "Your turn";
 };
 
+//Check if there is a winner
+//for each boat sunk, give 10 points to the player
 const checkWinner = () => {
   if (smallShipCount === 2) {
     generalInfo.textContent = "You sunk a computers small ship!";
@@ -437,13 +453,7 @@ const checkWinner = () => {
     pcBigShip2Count = 10;
   }
 
-  console.log("----NEW LINE------");
-  console.log(`small ship ${pcSmallShipCount}`);
-  console.log(`medium 1 ${pcMediumShipCount}`);
-  console.log(`medium 2 ${pcMediumShip2Count}`);
-  console.log(`big 1 ${pcBigShipCount}`);
-  console.log(`big 2 ${pcBigShip2Count}`);
-
+  // If a player has reached 50 points (all boats sunk) then he is the winner
   if (
     smallShipCount +
       mediumShipCount +
@@ -468,6 +478,7 @@ const checkWinner = () => {
   }
 };
 
+// game over function
 function gameIsOver() {
   gameOver = true;
   restartButton.style.display = "block";

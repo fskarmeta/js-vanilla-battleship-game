@@ -1,4 +1,4 @@
-//Numbered display for the grids css
+//Numbered display for the outside grid css
 const upper = document.getElementsByClassName("upper");
 const right_side = document.getElementsByClassName("right");
 
