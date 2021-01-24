@@ -6,4 +6,7 @@ Game was designed only for computer screens.
 
 Fork or Clone project, open Index.html and the game should be working.
 
+Live Demo:
+https://fskarmeta-battleship.netlify.app/
+
 ![Alt text](./gif.gif)
